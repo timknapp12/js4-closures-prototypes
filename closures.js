@@ -8,16 +8,18 @@ function outer() {
       return 'The original name was ' + name;
     }
   }
-  
+
   /****** INSTRUCTIONS PROBLEM 1 ******/
   /* Above you're given a function that returns another function which has a
   closure over the name variable. Invoke outer saving the return value into
   another variable called 'inner'. */
   
   // Code Here
+    
+  let inner = outer();
   
   //Once you do that, invoke inner.
-  
+  inner();
   //Code Here
   
   
@@ -51,7 +53,10 @@ function outer() {
   */
   
     //Code Here
-  
+  let callJake = callFriend('Jake');
+
+  callJake('435-555-9248');
+
   
   
   
@@ -69,13 +74,21 @@ function outer() {
   properly. */
   
   //Code Here
+
+  function makeCounter() {
+    let count = 0;
+    return function() {
+      count++;
+      return count;
+    }
+  }
   
-  //Uncomment this once you make your function
-  //   var count = makeCounter();
-  //   count(); // 1
-  //   count(); // 2
-  //   count(); // 3
-  //   count(); // 4
+  // Uncomment this once you make your function
+    var count = makeCounter();
+    count(); // 1
+    count(); // 2
+    count(); // 3
+    count(); // 4
   
   
   
@@ -103,19 +116,25 @@ function outer() {
   function counterFactory(value) {
   
     // Code here.
-  
-  
+    let num = value
     return {
-
+      inc: function() {
+      num += 1;
+      return num;
+    },
+      dec: function() {
+      num -= 1;
+      return num;
     }
   }
+}
   
   
   counter = counterFactory(10);
-  // counter.inc() // 11
-  // counter.inc() // 12
-  // counter.inc() // 13
-  // counter.dec() // 12
+  counter.inc() // 11
+  counter.inc() // 12
+  counter.inc() // 13
+  counter.dec() // 12
   
   
   
@@ -142,10 +161,15 @@ function outer() {
     var welcomeText = 'You\'re doing awesome, keep it up ';
   
     // code message function here.
+    
+      function message() {
+        return `${welcomeText}${firstname} ${lastname}.`
+      }
+    
   
   
-    //Uncommment this to return the value of your message function
-    //return message;
+    // Uncommment this to return the value of your message function
+    return message;
   
   }
   
@@ -184,11 +208,14 @@ function outer() {
     // outside our lexical scope
     return {
       // Code here.
+      publicMethod: function() {
+        return privateMethod();
+      }
     };
   
   })();
   
-  
+  mudule.publicMethod();
   
   /******************************************************************************\
    #PROBLEM-07
@@ -203,6 +230,14 @@ function outer() {
 
     return {
       // Code here
+      addToSecret: function(num) {
+        secret += num;
+        return secret;
+      },
+      takeAwayFromSecret: function(num) {
+        secret -= num;
+        return secret;
+      } 
     }
   }
   
@@ -230,10 +265,13 @@ function outer() {
   
   function timeOutCounter() {
     for (var i = 0; i <= 5; i++) {
+      function  memoryClosure(i) {
       setTimeout(function() {
           console.log(i)
       }, i * 1000)
     }
+    memoryClosure(i);
+  }
   }
   timeOutCounter();
   
